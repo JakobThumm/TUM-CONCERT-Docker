@@ -38,7 +38,7 @@ WORKDIR /home/user/tum_integration_ws
 ENV HHCM_FOREST_CLONE_DEFAULT_PROTO=https
 ########### src folder
 RUN forest init
-RUN echo "source $PWD/setup.bash" >> /home/user/.bashrc
+RUN echo "source /home/user/tum_integration_ws/setup.bash" >> /home/user/.bashrc
 RUN forest add-recipes git@github.com:manuelvogel12/multidof_recipes.git --tag tum-concert-docker 
 RUN forest grow tum_src --verbose --jobs 4 --pwd user
 # EIGEN 3.4.0
@@ -54,11 +54,6 @@ RUN curl -LJO https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.
 # TODO REMOVE
 ENV EIGEN3_INCLUDE_DIR=/home/user/tum_integration_ws/src/eigen-3.4.0
 
-# Install sara-shield
-# WORKDIR /home/user/tum_integration_ws/build
-# RUN mkdir sara-shield && cd sara-shield
-# RUN cmake ../../src/sara-shield && make install -j8
-
 ########### catkin_ws folder
 WORKDIR /home/user/tum_integration_ws/catkin_ws
 RUN forest init
@@ -70,8 +65,18 @@ ENV ROBOT_RL_SIM_ROOT=/home/user/tum_integration_ws/catkin_ws
 RUN rosdep update && rosdep install --from-paths src --ignore-src -r -y
 RUN catkin init && catkin config --install
 # TODO: Uncomment this when the human-gazebo package is fixed
-#RUN catkin build concert_msgs human-gazebo
+RUN catkin build concert_msgs  
+# human-gazebo
 RUN echo "source /home/user/tum_integration_ws/catkin_ws/devel/setup.bash" >> /home/user/.bashrc
+
+# Install sara-shield
+WORKDIR /home/user/tum_integration_ws/build
+RUN mkdir sara-shield
+WORKDIR /home/user/tum_integration_ws/build/sara-shield
+# USER root
+# RUN source /home/user/tum_integration_ws/catkin_ws/devel/setup.bash && source /home/user/tum_integration_ws/catkin_ws/setup.bash
+RUN cmake ../../src/sara-shield/safety_shield && make -j8
+# USER user
 
 # a few usage tips..
 RUN echo 'echo "USAGE:"' >> /home/user/.bashrc
