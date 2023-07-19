@@ -49,10 +49,13 @@ RUN curl -LJO https://gitlab.com/libeigen/eigen/-/archive/3.4.0/eigen-3.4.0.tar.
     rm eigen-3.4.0.tar.bz2
 
 # TODO USE THIS
-#WORKDIR /home/user/tum_integration_ws/build
-#RUN cmake ../src/eigen-3.4.0 && make install -j8
+WORKDIR /home/user/tum_integration_ws/build
+RUN mkdir eigen-3.4.0
+WORKDIR /home/user/tum_integration_ws/build/eigen-3.4.0
+RUN cmake ../../src/eigen-3.4.0 -DCMAKE_INSTALL_PREFIX=/home/user/tum_integration_ws/install 
+RUN make install -j8
 # TODO REMOVE
-ENV EIGEN3_INCLUDE_DIR=/home/user/tum_integration_ws/src/eigen-3.4.0
+# ENV EIGEN3_INCLUDE_DIR=/home/user/tum_integration_ws/src/eigen-3.4.0
 
 ########### catkin_ws folder
 WORKDIR /home/user/tum_integration_ws/catkin_ws
@@ -70,6 +73,8 @@ RUN catkin build concert_msgs
 RUN echo "source /home/user/tum_integration_ws/catkin_ws/devel/setup.bash" >> /home/user/.bashrc
 
 # Install sara-shield
+WORKDIR /home/user/tum_integration_ws/
+RUN source setup.bash
 WORKDIR /home/user/tum_integration_ws/build
 RUN mkdir sara-shield
 WORKDIR /home/user/tum_integration_ws/build/sara-shield
