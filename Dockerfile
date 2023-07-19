@@ -9,21 +9,24 @@ SHELL ["/bin/bash", "-ic"]
 
 WORKDIR /home/user
 
-RUN echo "source $PWD/setup.bash" >> /home/user/.bashrc
-
 # create forest ws and use it to clone and install CONCERT's simulation package
 RUN mkdir tum_integration_ws
+RUN mkdir tum_integration_ws/catkin_ws && \
+    mkdir tum_integration_ws/build && \
+    mkdir tum_integration_ws/install
 WORKDIR /home/user/tum_integration_ws
-RUN mkdir src && mkdir build && mkdir install && mkdir catkin_ws
 ENV HHCM_FOREST_CLONE_DEFAULT_PROTO=https
 
-# src folder
-WORKDIR /home/user/tum_integration_ws/src
 RUN forest init
+RUN echo "source $PWD/setup.bash" >> /home/user/.bashrc
 RUN forest add-recipes git@github.com:manuelvogel12/multidof_recipes.git --tag tum-concert-docker 
+
+# concert packages
 RUN forest grow tum_src --verbose --jobs 4 --pwd user
 # catkin_ws folder
 WORKDIR /home/user/tum_integration_ws/catkin_ws
+RUN forest init
+RUN forest add-recipes git@github.com:manuelvogel12/multidof_recipes.git --tag tum-concert-docker 
 RUN forest grow tum_catkin_ws --verbose --jobs 4 --pwd user
 
 # a few usage tips..
