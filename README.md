@@ -22,6 +22,21 @@ ccmake .
 make install -j8
 ```
 
+### Set xbot2 config file
+Right now, we have to do this manually: Go to
+```
+x
+```
+and edit `modular.launch`
+Replace 
+```
+$(find concert_xbot2)/modular.yaml
+```
+with 
+```
+/home/user/tum_integration_ws/src/sara-shield/config/xbot2_config.yaml
+```
+
 ### Start roscore
 ```
 roscore
@@ -60,7 +75,17 @@ rostopic pub /goal_joint_pos std_msgs/Float32MultiArray "layout:
     size: 0
     stride: 0
   data_offset: 0
-data: [0.0, -0.8, 0.0, 0.0, 0.0, 0.0]"
+data: [-2.5, 1.4, 0.0, 0.0, 0.0, 0.0]"
+```
+and then
+```
+rostopic pub /goal_joint_pos std_msgs/Float32MultiArray "layout:
+  dim:
+  - label: ''
+    size: 0
+    stride: 0
+  data_offset: 0
+data: [2.5, 1.4, 0.0, 0.0, 0.0, 0.0]"
 ```
 ## Send safety override
 To set the safety shield to unsafe send

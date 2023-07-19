@@ -73,11 +73,10 @@ RUN echo "source /home/user/tum_integration_ws/catkin_ws/devel/setup.bash" >> /h
 WORKDIR /home/user/tum_integration_ws/build
 RUN mkdir sara-shield
 WORKDIR /home/user/tum_integration_ws/build/sara-shield
-# USER root
 # RUN source /home/user/tum_integration_ws/catkin_ws/devel/setup.bash && source /home/user/tum_integration_ws/catkin_ws/setup.bash
-RUN cmake ../../src/sara-shield/safety_shield && make -j8
-# USER user
-
+RUN cmake ../../src/sara-shield/safety_shield -DCMAKE_INSTALL_PREFIX=/home/user/tum_integration_ws/install
+RUN make install -j8
+WORKDIR /home/user/tum_integration_ws/
 # a few usage tips..
 RUN echo 'echo "USAGE:"' >> /home/user/.bashrc
 RUN echo 'echo "run simulation....: mon launch concert_gazebo concert.launch"' >> /home/user/.bashrc
