@@ -9,18 +9,6 @@ Docker files for CONCERT Integration of TUM
 Builds the image `jakobthumm/tum-concert:latest.`
 
 ## Inside Docker
-Correctly build sara-shield
-```
-~/tum_integration_ws/build/sara-shield$ cmake ../../src/sara-shield/safety_shield/
-ccmake .
-```
--> Change install path from `/usr/lib` to `/home/user/tum_integration_ws/install`
-
--> `c` -> `g`
-
-```
-make install -j8
-```
 
 ### Set xbot2 config file
 Right now, we have to do this manually: Go to
