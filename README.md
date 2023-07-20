@@ -54,11 +54,11 @@ and **start the testnode plugin** (will be renamed to safety-shield) in the xbot
 
 TODO: upload rviz config
 
-The visualization topics of sara-shield are named ```/human_joint_marker_array``` and ```/robot_joint_marker_array``` and can be visualized by adding them in rviz.
+The visualization topics of sara-shield are named ```/sara_shield/human_joint_marker_array``` and ```/sara_shield/robot_joint_marker_array``` and can be visualized by adding them in rviz.
 
 ## Send goal position:
 ```
-rostopic pub /goal_joint_pos std_msgs/Float32MultiArray "layout:
+rostopic pub /sara_shield/goal_joint_pos std_msgs/Float32MultiArray "layout:
   dim:
   - label: ''
     size: 0
@@ -68,7 +68,7 @@ data: [-2.5, 1.4, 0.0, 0.0, 0.0, 0.0]"
 ```
 and then
 ```
-rostopic pub /goal_joint_pos std_msgs/Float32MultiArray "layout:
+rostopic pub /sara_shield/goal_joint_pos std_msgs/Float32MultiArray "layout:
   dim:
   - label: ''
     size: 0
@@ -79,7 +79,7 @@ data: [2.5, 1.4, 0.0, 0.0, 0.0, 0.0]"
 ## Send safety override
 To set the safety shield to unsafe send
 ```
-rostopic pub /safe_flag std_msgs/Bool "data: false"
+rostopic pub /sara_shield/safe_flag std_msgs/Bool "data: false"
 ```
 send true to activate normal safety shield behavior again.
 
@@ -91,4 +91,10 @@ rostopic pub /sara_shield/send_dummy_meas std_msgs/Bool "data: true"
 Don't send dummy measurements:
 ```
 rostopic pub /sara_shield/send_dummy_meas std_msgs/Bool "data: false"
+```
+
+## Send no humans in scene
+To tell sara-shield that there are no more humans in the scene, send
+```
+rostopic pub /sara_shield/humans_in_scene std_msgs/Bool "data: false" 
 ```
