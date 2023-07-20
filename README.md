@@ -13,7 +13,7 @@ Builds the image `jakobthumm/tum-concert:latest.`
 ### Set xbot2 config file
 Right now, we have to do this manually: Go to
 ```
-x
+cd /home/user/tum_integration_ws/src/concert_description/concert_gazebo/launch
 ```
 and edit `modular.launch`
 Replace 
@@ -27,13 +27,13 @@ with
 
 ### Start roscore
 ```
+source /home/user/tum_integration_ws/setup.bash
 roscore
 ```
 
 ### Start gazebo simulation
 ```
-cd ~/tum_integration_ws
-source setup.bash
+source /home/user/tum_integration_ws/setup.bash
 mon launch concert_gazebo concert.launch
 ```
 
@@ -47,6 +47,7 @@ This should open a large window with status "Running" in the top left corner. If
 ### Open `rviz`
 **Open Rviz** for visualization 
 ```
+source /home/user/tum_integration_ws/setup.bash
 rviz
 ```
 and **start the testnode plugin** (will be renamed to safety-shield) in the xbot2 gui. 
@@ -81,3 +82,13 @@ To set the safety shield to unsafe send
 rostopic pub /safe_flag std_msgs/Bool "data: false"
 ```
 send true to activate normal safety shield behavior again.
+
+## Send dummy human measurements
+Send dummy measurements:
+```
+rostopic pub /sara_shield/send_dummy_meas std_msgs/Bool "data: true"
+```
+Don't send dummy measurements:
+```
+rostopic pub /sara_shield/send_dummy_meas std_msgs/Bool "data: false"
+```
