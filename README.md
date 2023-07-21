@@ -143,6 +143,22 @@ Don't send dummy measurements:
 rostopic pub /sara_shield/send_dummy_meas std_msgs/Bool "data: false"
 ```
 
+# Known issues
+## Laptop with Nvidia Graphics Card (`libGL error`)
+If you get an error
+```
+libGL error: MESA-LOADER: failed to retrieve device information
+```
+On laptops, you have to disable Nvidia's `on-demand` mode, which only turns on the GPU if needed.
+To check your current mode, run
+```
+sudo prime-select query
+```
+If it says `on-demand`, switch to mode `nvidia` with 
+```
+sudo prime-select nvidia
+```
+**Restart your computer**
 ## Send no humans in scene
 To tell sara-shield that there are no more humans in the scene, send
 ```
