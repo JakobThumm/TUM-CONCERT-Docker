@@ -1,6 +1,56 @@
 # TUM-CONCERT-Docker
 Docker files for CONCERT Integration of TUM
 
+### Related git repositories
+ - [concert_description](https://github.com/ADVRHumanoids/concert_description): Includes all concert and xbot2 functionalities common for all partners.
+ - [concert_msgs](https://github.com/ADVRHumanoids/concert_msgs): Defines the msgs send and received between packages.
+ - [sara-shield](https://github.com/manuelvogel12/sara-shield): Ensures human safety.
+ - [multidof_recipes](https://github.com/manuelvogel12/multidof_recipes): Forest recipes -- Pulls the git repos and defines how to build the packages.
+ - [human-gazebo](https://github.com/JakobThumm/human-gazebo): Animated human model in gazebo sending out joint measurements.
+
+### Folder structure
+An extract of the most important folders (some folders removed for simplicity!):
+```
+tum_integration_ws
+    ├── build
+    │   ├── base_estimation
+    │   ├── centauro_cartesio
+    │   ├── eigen-3.4.0
+    │   ├── realsense_gazebo_description
+    │   ├── realsense_gazebo_plugin
+    │   └── sara-shield
+    ├── catkin_ws
+    │   ├── devel
+            └── setup.bash
+    │   ├── setup.bash
+    │   └── src
+    │       ├── concert_msgs
+    │       └── human-gazebo
+    ├── install
+    │   ├── include
+    │   │   ├── SaRA
+    │   │   ├── base_estimation
+    │   │   ├── centauro_cartesio
+    │   │   └── eigen3
+    │   ├── lib
+    ├── recipes
+    │   └── multidof_recipes
+    ├── ros_src
+    │   ├── concert_description -> /home/user/tum_integration_ws/src/concert_description
+    │   ├── modular -> /home/user/tum_integration_ws/src/modular
+    │   ├── realsense_gazebo_description -> /home/user/tum_integration_ws/src/realsense_gazebo_description
+    │   └── sara-shield -> /home/user/tum_integration_ws/src/sara-shield
+    └── src
+        ├── base_estimation
+        ├── centauro_cartesio
+        ├── concert_description
+        ├── eigen-3.4.0
+        ├── modular
+        ├── realsense_gazebo_description
+        ├── realsense_gazebo_plugin
+        └── sara-shield
+```
+
 ## BUILD AND RUN THE DOCKER CONTAINER
 ```
 ./docker/build-docker.bash --no-cache 
