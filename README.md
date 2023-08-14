@@ -53,8 +53,8 @@ tum_integration_ws
 
 ## BUILD AND RUN THE DOCKER CONTAINER
 ```
-./docker/build-docker.bash --no-cache 
-./docker/run-docker.bash
+./build-docker.bash --no-cache 
+./run-docker.bash
 ```
 Builds the image `jakobthumm/tum-concert:latest.`
 
@@ -65,7 +65,7 @@ Right now, we have to do this manually: Go to
 ```
 cd /home/user/tum_integration_ws/src/concert_description/concert_gazebo/launch
 ```
-and edit `modular.launch`
+and edit `modular.launch` and `concert.launch`
 Replace 
 ```
 $(find concert_xbot2)/modular.yaml
@@ -100,11 +100,12 @@ This should open a large window with status "Running" in the top left corner. If
 source /home/user/tum_integration_ws/setup.bash
 rviz
 ```
-and **start the testnode plugin** (will be renamed to safety-shield) in the xbot2 gui. 
-
-TODO: upload rviz config
+Inside Rviz: go to the menu `File`, and select `Open Config` and load `/home/user/tum_integration_ws/src/sara-shield/safety_shield/rviz/concert_sara_shield.rviz`or alternativly add the topics by hand:
 
 The visualization topics of sara-shield are named ```/sara_shield/human_joint_marker_array``` and ```/sara_shield/robot_joint_marker_array``` and can be visualized by adding them in rviz.
+
+and then **start the safety-shield plugin** in the xbot2 gui. 
+
 
 ## Send goal position:
 ```
@@ -142,7 +143,8 @@ Don't send dummy measurements:
 ```
 rostopic pub /sara_shield/send_dummy_meas std_msgs/Bool "data: false"
 ```
-
+# Notes
+The password for the user `user` is `user`
 # Known issues
 ## Laptop with Nvidia Graphics Card (`libGL error`)
 If you get an error
