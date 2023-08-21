@@ -38,7 +38,7 @@ WORKDIR /home/user/tum_integration_ws
 ENV HHCM_FOREST_CLONE_DEFAULT_PROTO=https
 ########### src folder
 RUN forest init
-RUN echo "source /home/user/tum_integration_ws/setup.bash" >> /home/user/.bashrc
+
 RUN forest add-recipes git@github.com:manuelvogel12/multidof_recipes.git --tag tum-concert-docker 
 RUN forest grow tum_src --verbose --jobs 4 --pwd user
 # EIGEN 3.4.0
@@ -82,6 +82,9 @@ WORKDIR /home/user/tum_integration_ws/build/sara-shield
 RUN cmake ../../src/sara-shield/safety_shield -DCMAKE_INSTALL_PREFIX=/home/user/tum_integration_ws/install
 RUN make install -j8
 WORKDIR /home/user/tum_integration_ws/
+
+RUN echo "source /home/user/tum_integration_ws/setup.bash" >> /home/user/.bashrc
+
 # a few usage tips..
 RUN echo 'echo "USAGE:"' >> /home/user/.bashrc
 RUN echo 'echo "run simulation....: mon launch concert_gazebo concert.launch"' >> /home/user/.bashrc
