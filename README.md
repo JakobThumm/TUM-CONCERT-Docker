@@ -60,31 +60,14 @@ Builds the image `jakobthumm/tum-concert:latest.`
 
 ## Inside Docker
 
-### Set xbot2 config file
-Right now, we have to do this manually: Go to
-```
-cd /home/user/tum_integration_ws/src/concert_description/concert_gazebo/launch
-```
-and edit `modular.launch` and `concert.launch`
-Replace 
-```
-$(find concert_xbot2)/modular.yaml
-```
-with 
-```
-/home/user/tum_integration_ws/src/sara-shield/config/xbot2_config.yaml
-```
-
 ### Start roscore
 ```
-source /home/user/tum_integration_ws/setup.bash
 roscore
 ```
 
 ### Start gazebo simulation
 ```
-source /home/user/tum_integration_ws/setup.bash
-mon launch concert_gazebo concert.launch
+mon launch sara_shield concert.launch
 ```
 
 ### Open `xbot2-Gui`
@@ -97,10 +80,9 @@ This should open a large window with status "Running" in the top left corner. If
 ### Open `rviz`
 **Open Rviz** for visualization 
 ```
-source /home/user/tum_integration_ws/setup.bash
-rviz
+rviz -d $(rospack find sara_shield)/safety_shield/rviz/concert_sara_shield.rviz
 ```
-Inside Rviz: go to the menu `File`, and select `Open Config` and load `/home/user/tum_integration_ws/src/sara-shield/safety_shield/rviz/concert_sara_shield.rviz`or alternativly add the topics by hand:
+Alternatively, run `rviz` and inside Rviz: go to the menu `File`, and select `Open Config` and load `/home/user/tum_integration_ws/src/sara-shield/safety_shield/rviz/concert_sara_shield.rviz`or even add the topics by hand:
 
 The visualization topics of sara-shield are named ```/sara_shield/human_joint_marker_array``` and ```/sara_shield/robot_joint_marker_array``` and can be visualized by adding them in rviz.
 
@@ -144,7 +126,9 @@ Don't send dummy measurements:
 rostopic pub /sara_shield/send_dummy_meas std_msgs/Bool "data: false"
 ```
 # Notes
-The password for the user `user` is `user`
+* The password for the user `user` is `user`
+* If something doesn't seem to be found, try re-sourcing tum_integration_ws/catkin_ws/devel/setup.bash and **then** tum_integration_ws/setup.bash
+
 # Known issues
 ## Laptop with Nvidia Graphics Card (`libGL error`)
 If you get an error
@@ -166,3 +150,5 @@ To tell sara-shield that there are no more humans in the scene, send
 ```
 rostopic pub /sara_shield/humans_in_scene std_msgs/Bool "data: false" 
 ```
+
+
