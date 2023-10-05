@@ -151,4 +151,39 @@ To tell sara-shield that there are no more humans in the scene, send
 rostopic pub /sara_shield/humans_in_scene std_msgs/Bool "data: false" 
 ```
 
+## Gravity compensation
+In order to compansate gravity, do the following steps:
+```
+cd ~/tum_integration_ws/src/
+git clone git@github.com:ADVRHumanoids/xbot2_examples.git
+cd xbot2_examples
+git checkout v2.10
+```
+then change following lines manually:
+* line 40:
+ remove `ControlMode::PosImpedance() + `
+* line 187: remove `_robot->setPositionReference(_qref);`
+then
+```
+cd ~/tum_integration_ws/build
+mkdir xbot2_examples && cd xbot2_examples
+cmake ../../src/xbot2_examples
+ccmake ../../src/xbot2_examples
+```
+inside ccmake, change `/usr/lib/` to `/opt/xbot`
+then
+`sudo make -j4 install`
+
+In the config, add
+```
+  gcomp_example:
+      type: gcomp_example
+      thread: rt_main
+      params:
+        enabled_chains: 
+          value: [chain_E]
+          type: vector<string>
+```
+  
+
 
