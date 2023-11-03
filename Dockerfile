@@ -38,14 +38,14 @@ RUN echo "source $PWD/setup.bash" >> /home/user/.bashrc
 ENV HHCM_FOREST_CLONE_DEFAULT_PROTO=https
 
 RUN forest init
-RUN forest add-recipes git@github.com:manuelvogel12/multidof_recipes.git --tag improved_installation
+RUN forest add-recipes git@github.com:manuelvogel12/multidof_recipes.git --tag master
 RUN forest grow pybind11 --verbose --jobs 4 --pwd user
 
 
 ########### catkin_ws folder
 WORKDIR /home/user/tum_integration_ws/catkin_ws
 RUN forest init
-RUN forest add-recipes git@github.com:manuelvogel12/multidof_recipes.git --tag improved_installation 
+RUN forest add-recipes git@github.com:manuelvogel12/multidof_recipes.git --tag master 
 RUN forest grow tum_catkin_ws --verbose --jobs 4 --pwd user
 RUN catkin build
 
