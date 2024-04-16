@@ -18,7 +18,8 @@ RUN apt-get update --fix-missing && \
         sudo \
         libgtest-dev \
         libgmock-dev \
-        python3-catkin-tools
+        python3-catkin-tools \
+        ros-noetic-realsense2-description
 #RUN apt-get autoremove -y && \
 #    apt-get clean -y && \
 #    rm -rf /var/lib/apt/lists/*
@@ -70,3 +71,6 @@ RUN chown -R user .
 ENV DEBIAN_FRONTEND=dialog
 # change user, copy start script (launches gazebo and gzweb)
 USER user
+
+# FOR WORKING ON THE REAL ROBOT (ENABLE THIS) (remove the # after 'echo')
+RUN echo '# export ROS_MASTER_URI=http://10.24.10.100:11311' >> /home/user/.bashrc
