@@ -4,9 +4,13 @@ Docker files for CONCERT Integration of TUM
 ### Related git repositories
  - [concert_description](https://github.com/ADVRHumanoids/concert_description): Includes all concert and xbot2 functionalities common for all partners.
  - [concert_msgs](https://github.com/ADVRHumanoids/concert_msgs): Defines the msgs send and received between packages.
- - [sara-shield](https://github.com/manuelvogel12/sara-shield): Ensures human safety.
- - [multidof_recipes](https://github.com/manuelvogel12/multidof_recipes): Forest recipes -- Pulls the git repos and defines how to build the packages.
- - [human-gazebo](https://github.com/JakobThumm/human-gazebo): Animated human model in gazebo sending out joint measurements.
+ - [sara-shield](https://github.com/TUM-CONCERT/sara-shield-xbot2): Ensures human safety.
+ - [multidof_recipes](https://github.com/TUM-CONCERT/sara_shield_forest_recipes): Forest recipes -- Pulls the git repos and defines how to build the packages.
+ - [human-gazebo](https://github.com/TUM-CONCERT/human-gazebo): Animated human model in gazebo sending out joint measurements.
+ - [rviz_plugin_sara_shield](https://github.com/TUM-CONCERT/rviz_plugin_sara_shield) : Visualize the sara-shield status in RVIZ and send sara shield commands
+ - [rviz_plugin_humans](https://github.com/TUM-CONCERT/rviz_plugin_humans): Visualize concert_msgs/Humans messages in RVIZ directly.
+ - [sara_shield_utils](https://github.com/TUM-CONCERT/sara_shield_utils): Tools and Rosnodes for debugging and testing of sara-shield
+
 
 ### Folder structure
 An extract of the most important folders (some folders removed for simplicity!):
@@ -25,6 +29,9 @@ tum_integration_ws
     │   ├── setup.bash
     │   └── src
     │       ├── concert_msgs
+    │       ├── sara_shield_utils
+    │       ├── rviz_plugin_sara_shield
+    │       ├── rviz_plugin_sara_shield
     │       └── human-gazebo
     ├── install
     │   ├── include
